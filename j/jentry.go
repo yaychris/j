@@ -1,20 +1,20 @@
 package j
 
 import (
-  "fmt"
-  "time"
+    "fmt"
+    "time"
 )
 
 type JEntry struct {
-  Path         string
-  Rank         float64
-  Timestamp    int
-  WeightedRank float64
+    Path      string
+    Rank      float64
+    Timestamp int
+    Frecency  float64
 }
 
 
 func (entry *JEntry) String() string {
-    return fmt.Sprintf("Entry: %s %f %d %f", entry.Path, entry.Rank, entry.Timestamp, entry.WeightedRank)
+    return fmt.Sprintf("%s %f %d %f", entry.Path, entry.Rank, entry.Timestamp, entry.Frecency)
 }
 
 func NewJEntry(path string, rank float64, timestamp int) *JEntry {
@@ -22,18 +22,18 @@ func NewJEntry(path string, rank float64, timestamp int) *JEntry {
 
     dx := now - timestamp
 
-    var weightedRank float64
+    var frecency float64
 
     if dx < 3600 {
-        weightedRank = rank * 4.0
+        frecency = rank * 4.0
     } else if dx < 86400 {
-        weightedRank = rank * 2
+        frecency = rank * 2
     } else if dx < 604800 {
-        weightedRank = rank / 2
+        frecency = rank / 2
     } else {
-        weightedRank = rank / 4
+        frecency = rank / 4
     }
 
-    return &JEntry{path, rank, timestamp, weightedRank}
+    return &JEntry{path, rank, timestamp, frecency}
 }
 

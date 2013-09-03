@@ -1,16 +1,16 @@
 package j
 
 import (
-  "io/ioutil"
-  "strconv"
-  "strings"
+    "io/ioutil"
+    "strconv"
+    "strings"
 )
 
 type JSet struct {
     Entries []*JEntry
 }
 
-func NewJSet(file string) (*JSet, error) {
+func NewJSetFromFile(file string) (*JSet, error) {
     rawBytes, err := ioutil.ReadFile(file)
 
     if err != nil {
@@ -18,7 +18,6 @@ func NewJSet(file string) (*JSet, error) {
     }
 
     text := string(rawBytes)
-
     lines := strings.Split(text, "\n")
 
     set := &JSet{ Entries: make([]*JEntry, 0, len(lines)) }
