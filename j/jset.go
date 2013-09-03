@@ -10,6 +10,9 @@ type JSet struct {
     Entries []*JEntry
 }
 
+type EachFunc   func(entry *JEntry)
+type SelectFunc func(entry *JEntry) bool
+
 func NewJSetFromFile(file string) (*JSet, error) {
     rawBytes, err := ioutil.ReadFile(file)
 
@@ -37,4 +40,22 @@ func NewJSetFromFile(file string) (*JSet, error) {
     }
 
     return set, nil
+}
+
+func (set *JSet) Each(f EachFunc) {
+    for i := range set.Entries {
+        f(set.Entries[i])
+    }
+}
+
+func (set *JSet) Select(f SelectFunc) *JSet {
+    newSet := &JSet{ make([]*JEntry, 0, len(set.Entries)) }
+
+    set.Each(func (entry *JEntry) {
+        if f(entry) {
+            newSet.Entries = append(newSet.Entries, entry)
+        }
+    })
+
+    return newSet
 }
