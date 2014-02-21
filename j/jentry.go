@@ -17,6 +17,10 @@ func (entry *JEntry) String() string {
     return fmt.Sprintf("%s %f %d %f", entry.Path, entry.Rank, entry.Timestamp, entry.Frecency)
 }
 
+func (entry *JEntry) DataString() string {
+    return fmt.Sprintf("%s|%f|%d", entry.Path, entry.Rank, entry.Timestamp)
+}
+
 func NewJEntry(path string, rank float64, timestamp int) *JEntry {
     now := int(time.Now().Unix())
 
