@@ -15,11 +15,7 @@ func Match(set *JSet, query string, matchLimit int) {
         return matcher.MatchString(entry.Path)
     }).Sort()
 
-    if matchLimit > 0 {
-        if matchLimit > matches.Len() {
-            matchLimit = matches.Len()
-        }
-
+    if matchLimit > 0 && matchLimit <= matches.Len() {
         matches.Limit(matchLimit)
     }
 
