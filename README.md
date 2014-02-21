@@ -24,6 +24,11 @@ Add this inside your `fish_prompt` function:
       # other fish prompt stuffs
     end
 
+Add the environment variables to your fish config:
+
+    set -x J_COMMAND /path/to/repo/jgo
+    set -x J_DATA "$HOME/.j"
+
 `cd` around to build up the database.
 
 Commands
