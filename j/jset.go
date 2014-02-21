@@ -128,7 +128,7 @@ func (set *JSet) totalRankCount() (count float64) {
         count += entry.Rank
     })
 
-    return count
+    return
 }
 
 func (set *JSet) age() {
