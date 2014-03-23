@@ -23,11 +23,11 @@ func init() {
     flag.StringVar(&match,     "match", "",    "find first match")
     flag.IntVar(&matchLimit,   "limit", -1,    "limit the number of matches")
     flag.StringVar(&pathToAdd, "add",   "",    "path to add to the database")
+
+    flag.Parse()
 }
 
 func main() {
-    flag.Parse()
-
     if file == "" {
         fmt.Println("must specify the data file in the J_DATA environment variable")
         os.Exit(1)
@@ -47,6 +47,6 @@ func main() {
     } else if pathToAdd != "" {
         j.Add(set, pathToAdd, file)
     } else {
-        j.Usage()
+        flag.Usage()
     }
 }
